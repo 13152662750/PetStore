@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fjw.mapper.PetinfoMapper">
+  <resultMap id="BaseResultMap" type="com.fjw.domain.Petinfo">
+    <id column="pet_id" jdbcType="INTEGER" property="petId" />
+    <result column="pet_name" jdbcType="VARCHAR" property="petName" />
+    <result column="pet_sex" jdbcType="VARCHAR" property="petSex" />
+    <result column="pet_strength" jdbcType="INTEGER" property="petStrength" />
+    <result column="pet_cute" jdbcType="INTEGER" property="petCute" />
+    <result column="pet_love" jdbcType="INTEGER" property="petLove" />
+    <result column="pet_intro" jdbcType="VARCHAR" property="petIntro" />
+    <result column="pet_owner_name" jdbcType="VARCHAR" property="petOwnerName" />
+    <result column="pet_owner_email" jdbcType="VARCHAR" property="petOwnerEmail" />
+    <result column="pet_password" jdbcType="VARCHAR" property="petPassword" />
+    <result column="pet_pic" jdbcType="VARCHAR" property="petPic" />
+    <result column="pet_type" jdbcType="INTEGER" property="petType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    pet_id, pet_name, pet_sex, pet_strength, pet_cute, pet_love, pet_intro, pet_owner_name, 
+    pet_owner_email, pet_password, pet_pic, pet_type
+  </sql>
+  <select id="selectByExample" parameterType="com.fjw.domain.PetinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from petinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from petinfo
+    where pet_id = #{petId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from petinfo
+    where pet_id = #{petId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fjw.domain.PetinfoExample">
+    delete from petinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fjw.domain.Petinfo">
+    insert into petinfo (pet_id, pet_name, pet_sex, 
+      pet_strength, pet_cute, pet_love, 
+      pet_intro, pet_owner_name, pet_owner_email, 
+      pet_password, pet_pic, pet_type
+      )
+    values (#{petId,jdbcType=INTEGER}, #{petName,jdbcType=VARCHAR}, #{petSex,jdbcType=VARCHAR}, 
+      #{petStrength,jdbcType=INTEGER}, #{petCute,jdbcType=INTEGER}, #{petLove,jdbcType=INTEGER}, 
+      #{petIntro,jdbcType=VARCHAR}, #{petOwnerName,jdbcType=VARCHAR}, #{petOwnerEmail,jdbcType=VARCHAR}, 
+      #{petPassword,jdbcType=VARCHAR}, #{petPic,jdbcType=VARCHAR}, #{petType,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fjw.domain.Petinfo">
+    insert into petinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="petId != null">
+        pet_id,
+      </if>
+      <if test="petName != null">
+        pet_name,
+      </if>
+      <if test="petSex != null">
+        pet_sex,
+      </if>
+      <if test="petStrength != null">
+        pet_strength,
+      </if>
+      <if test="petCute != null">
+        pet_cute,
+      </if>
+      <if test="petLove != null">
+        pet_love,
+      </if>
+      <if test="petIntro != null">
+        pet_intro,
+      </if>
+      <if test="petOwnerName != null">
+        pet_owner_name,
+      </if>
+      <if test="petOwnerEmail != null">
+        pet_owner_email,
+      </if>
+      <if test="petPassword != null">
+        pet_password,
+      </if>
+      <if test="petPic != null">
+        pet_pic,
+      </if>
+      <if test="petType != null">
+        pet_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="petId != null">
+        #{petId,jdbcType=INTEGER},
+      </if>
+      <if test="petName != null">
+        #{petName,jdbcType=VARCHAR},
+      </if>
+      <if test="petSex != null">
+        #{petSex,jdbcType=VARCHAR},
+      </if>
+      <if test="petStrength != null">
+        #{petStrength,jdbcType=INTEGER},
+      </if>
+      <if test="petCute != null">
+        #{petCute,jdbcType=INTEGER},
+      </if>
+      <if test="petLove != null">
+        #{petLove,jdbcType=INTEGER},
+      </if>
+      <if test="petIntro != null">
+        #{petIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="petOwnerName != null">
+        #{petOwnerName,jdbcType=VARCHAR},
+      </if>
+      <if test="petOwnerEmail != null">
+        #{petOwnerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="petPassword != null">
+        #{petPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="petPic != null">
+        #{petPic,jdbcType=VARCHAR},
+      </if>
+      <if test="petType != null">
+        #{petType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fjw.domain.PetinfoExample" resultType="java.lang.Integer">
+    select count(*) from petinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update petinfo
+    <set>
+      <if test="record.petId != null">
+        pet_id = #{record.petId,jdbcType=INTEGER},
+      </if>
+      <if test="record.petName != null">
+        pet_name = #{record.petName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petSex != null">
+        pet_sex = #{record.petSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petStrength != null">
+        pet_strength = #{record.petStrength,jdbcType=INTEGER},
+      </if>
+      <if test="record.petCute != null">
+        pet_cute = #{record.petCute,jdbcType=INTEGER},
+      </if>
+      <if test="record.petLove != null">
+        pet_love = #{record.petLove,jdbcType=INTEGER},
+      </if>
+      <if test="record.petIntro != null">
+        pet_intro = #{record.petIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petOwnerName != null">
+        pet_owner_name = #{record.petOwnerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petOwnerEmail != null">
+        pet_owner_email = #{record.petOwnerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petPassword != null">
+        pet_password = #{record.petPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petPic != null">
+        pet_pic = #{record.petPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petType != null">
+        pet_type = #{record.petType,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update petinfo
+    set pet_id = #{record.petId,jdbcType=INTEGER},
+      pet_name = #{record.petName,jdbcType=VARCHAR},
+      pet_sex = #{record.petSex,jdbcType=VARCHAR},
+      pet_strength = #{record.petStrength,jdbcType=INTEGER},
+      pet_cute = #{record.petCute,jdbcType=INTEGER},
+      pet_love = #{record.petLove,jdbcType=INTEGER},
+      pet_intro = #{record.petIntro,jdbcType=VARCHAR},
+      pet_owner_name = #{record.petOwnerName,jdbcType=VARCHAR},
+      pet_owner_email = #{record.petOwnerEmail,jdbcType=VARCHAR},
+      pet_password = #{record.petPassword,jdbcType=VARCHAR},
+      pet_pic = #{record.petPic,jdbcType=VARCHAR},
+      pet_type = #{record.petType,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fjw.domain.Petinfo">
+    update petinfo
+    <set>
+      <if test="petName != null">
+        pet_name = #{petName,jdbcType=VARCHAR},
+      </if>
+      <if test="petSex != null">
+        pet_sex = #{petSex,jdbcType=VARCHAR},
+      </if>
+      <if test="petStrength != null">
+        pet_strength = #{petStrength,jdbcType=INTEGER},
+      </if>
+      <if test="petCute != null">
+        pet_cute = #{petCute,jdbcType=INTEGER},
+      </if>
+      <if test="petLove != null">
+        pet_love = #{petLove,jdbcType=INTEGER},
+      </if>
+      <if test="petIntro != null">
+        pet_intro = #{petIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="petOwnerName != null">
+        pet_owner_name = #{petOwnerName,jdbcType=VARCHAR},
+      </if>
+      <if test="petOwnerEmail != null">
+        pet_owner_email = #{petOwnerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="petPassword != null">
+        pet_password = #{petPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="petPic != null">
+        pet_pic = #{petPic,jdbcType=VARCHAR},
+      </if>
+      <if test="petType != null">
+        pet_type = #{petType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pet_id = #{petId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fjw.domain.Petinfo">
+    update petinfo
+    set pet_name = #{petName,jdbcType=VARCHAR},
+      pet_sex = #{petSex,jdbcType=VARCHAR},
+      pet_strength = #{petStrength,jdbcType=INTEGER},
+      pet_cute = #{petCute,jdbcType=INTEGER},
+      pet_love = #{petLove,jdbcType=INTEGER},
+      pet_intro = #{petIntro,jdbcType=VARCHAR},
+      pet_owner_name = #{petOwnerName,jdbcType=VARCHAR},
+      pet_owner_email = #{petOwnerEmail,jdbcType=VARCHAR},
+      pet_password = #{petPassword,jdbcType=VARCHAR},
+      pet_pic = #{petPic,jdbcType=VARCHAR},
+      pet_type = #{petType,jdbcType=INTEGER}
+    where pet_id = #{petId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.fjw.domain.Petinfo">
+    <id column="pet_id" jdbcType="INTEGER" property="petId" />
+    <result column="pet_name" jdbcType="VARCHAR" property="petName" />
+    <result column="pet_sex" jdbcType="VARCHAR" property="petSex" />
+    <result column="pet_strength" jdbcType="INTEGER" property="petStrength" />
+    <result column="pet_cute" jdbcType="INTEGER" property="petCute" />
+    <result column="pet_love" jdbcType="INTEGER" property="petLove" />
+    <result column="pet_intro" jdbcType="VARCHAR" property="petIntro" />
+    <result column="pet_owner_name" jdbcType="VARCHAR" property="petOwnerName" />
+    <result column="pet_owner_email" jdbcType="VARCHAR" property="petOwnerEmail" />
+    <result column="pet_password" jdbcType="VARCHAR" property="petPassword" />
+    <result column="pet_pic" jdbcType="VARCHAR" property="petPic" />
+    <result column="pet_type" jdbcType="INTEGER" property="petType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    pet_id, pet_name, pet_sex, pet_strength, pet_cute, pet_love, pet_intro, pet_owner_name, 
+    pet_owner_email, pet_password, pet_pic, pet_type
+  </sql>
+  <select id="selectByExample" parameterType="com.fjw.domain.PetinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from petinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from petinfo
+    where pet_id = #{petId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from petinfo
+    where pet_id = #{petId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fjw.domain.PetinfoExample">
+    delete from petinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fjw.domain.Petinfo">
+    insert into petinfo (pet_id, pet_name, pet_sex, 
+      pet_strength, pet_cute, pet_love, 
+      pet_intro, pet_owner_name, pet_owner_email, 
+      pet_password, pet_pic, pet_type
+      )
+    values (#{petId,jdbcType=INTEGER}, #{petName,jdbcType=VARCHAR}, #{petSex,jdbcType=VARCHAR}, 
+      #{petStrength,jdbcType=INTEGER}, #{petCute,jdbcType=INTEGER}, #{petLove,jdbcType=INTEGER}, 
+      #{petIntro,jdbcType=VARCHAR}, #{petOwnerName,jdbcType=VARCHAR}, #{petOwnerEmail,jdbcType=VARCHAR}, 
+      #{petPassword,jdbcType=VARCHAR}, #{petPic,jdbcType=VARCHAR}, #{petType,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fjw.domain.Petinfo">
+    insert into petinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="petId != null">
+        pet_id,
+      </if>
+      <if test="petName != null">
+        pet_name,
+      </if>
+      <if test="petSex != null">
+        pet_sex,
+      </if>
+      <if test="petStrength != null">
+        pet_strength,
+      </if>
+      <if test="petCute != null">
+        pet_cute,
+      </if>
+      <if test="petLove != null">
+        pet_love,
+      </if>
+      <if test="petIntro != null">
+        pet_intro,
+      </if>
+      <if test="petOwnerName != null">
+        pet_owner_name,
+      </if>
+      <if test="petOwnerEmail != null">
+        pet_owner_email,
+      </if>
+      <if test="petPassword != null">
+        pet_password,
+      </if>
+      <if test="petPic != null">
+        pet_pic,
+      </if>
+      <if test="petType != null">
+        pet_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="petId != null">
+        #{petId,jdbcType=INTEGER},
+      </if>
+      <if test="petName != null">
+        #{petName,jdbcType=VARCHAR},
+      </if>
+      <if test="petSex != null">
+        #{petSex,jdbcType=VARCHAR},
+      </if>
+      <if test="petStrength != null">
+        #{petStrength,jdbcType=INTEGER},
+      </if>
+      <if test="petCute != null">
+        #{petCute,jdbcType=INTEGER},
+      </if>
+      <if test="petLove != null">
+        #{petLove,jdbcType=INTEGER},
+      </if>
+      <if test="petIntro != null">
+        #{petIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="petOwnerName != null">
+        #{petOwnerName,jdbcType=VARCHAR},
+      </if>
+      <if test="petOwnerEmail != null">
+        #{petOwnerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="petPassword != null">
+        #{petPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="petPic != null">
+        #{petPic,jdbcType=VARCHAR},
+      </if>
+      <if test="petType != null">
+        #{petType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fjw.domain.PetinfoExample" resultType="java.lang.Integer">
+    select count(*) from petinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update petinfo
+    <set>
+      <if test="record.petId != null">
+        pet_id = #{record.petId,jdbcType=INTEGER},
+      </if>
+      <if test="record.petName != null">
+        pet_name = #{record.petName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petSex != null">
+        pet_sex = #{record.petSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petStrength != null">
+        pet_strength = #{record.petStrength,jdbcType=INTEGER},
+      </if>
+      <if test="record.petCute != null">
+        pet_cute = #{record.petCute,jdbcType=INTEGER},
+      </if>
+      <if test="record.petLove != null">
+        pet_love = #{record.petLove,jdbcType=INTEGER},
+      </if>
+      <if test="record.petIntro != null">
+        pet_intro = #{record.petIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petOwnerName != null">
+        pet_owner_name = #{record.petOwnerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petOwnerEmail != null">
+        pet_owner_email = #{record.petOwnerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petPassword != null">
+        pet_password = #{record.petPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petPic != null">
+        pet_pic = #{record.petPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petType != null">
+        pet_type = #{record.petType,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update petinfo
+    set pet_id = #{record.petId,jdbcType=INTEGER},
+      pet_name = #{record.petName,jdbcType=VARCHAR},
+      pet_sex = #{record.petSex,jdbcType=VARCHAR},
+      pet_strength = #{record.petStrength,jdbcType=INTEGER},
+      pet_cute = #{record.petCute,jdbcType=INTEGER},
+      pet_love = #{record.petLove,jdbcType=INTEGER},
+      pet_intro = #{record.petIntro,jdbcType=VARCHAR},
+      pet_owner_name = #{record.petOwnerName,jdbcType=VARCHAR},
+      pet_owner_email = #{record.petOwnerEmail,jdbcType=VARCHAR},
+      pet_password = #{record.petPassword,jdbcType=VARCHAR},
+      pet_pic = #{record.petPic,jdbcType=VARCHAR},
+      pet_type = #{record.petType,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fjw.domain.Petinfo">
+    update petinfo
+    <set>
+      <if test="petName != null">
+        pet_name = #{petName,jdbcType=VARCHAR},
+      </if>
+      <if test="petSex != null">
+        pet_sex = #{petSex,jdbcType=VARCHAR},
+      </if>
+      <if test="petStrength != null">
+        pet_strength = #{petStrength,jdbcType=INTEGER},
+      </if>
+      <if test="petCute != null">
+        pet_cute = #{petCute,jdbcType=INTEGER},
+      </if>
+      <if test="petLove != null">
+        pet_love = #{petLove,jdbcType=INTEGER},
+      </if>
+      <if test="petIntro != null">
+        pet_intro = #{petIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="petOwnerName != null">
+        pet_owner_name = #{petOwnerName,jdbcType=VARCHAR},
+      </if>
+      <if test="petOwnerEmail != null">
+        pet_owner_email = #{petOwnerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="petPassword != null">
+        pet_password = #{petPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="petPic != null">
+        pet_pic = #{petPic,jdbcType=VARCHAR},
+      </if>
+      <if test="petType != null">
+        pet_type = #{petType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pet_id = #{petId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fjw.domain.Petinfo">
+    update petinfo
+    set pet_name = #{petName,jdbcType=VARCHAR},
+      pet_sex = #{petSex,jdbcType=VARCHAR},
+      pet_strength = #{petStrength,jdbcType=INTEGER},
+      pet_cute = #{petCute,jdbcType=INTEGER},
+      pet_love = #{petLove,jdbcType=INTEGER},
+      pet_intro = #{petIntro,jdbcType=VARCHAR},
+      pet_owner_name = #{petOwnerName,jdbcType=VARCHAR},
+      pet_owner_email = #{petOwnerEmail,jdbcType=VARCHAR},
+      pet_password = #{petPassword,jdbcType=VARCHAR},
+      pet_pic = #{petPic,jdbcType=VARCHAR},
+      pet_type = #{petType,jdbcType=INTEGER}
+    where pet_id = #{petId,jdbcType=INTEGER}
+  </update>
+</mapper>

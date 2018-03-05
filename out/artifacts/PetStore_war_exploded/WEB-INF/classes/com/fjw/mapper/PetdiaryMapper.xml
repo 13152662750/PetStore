@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fjw.mapper.PetdiaryMapper" >
+  <resultMap id="BaseResultMap" type="com.fjw.domain.Petdiary" >
+    <id column="diary_id" property="diaryId" jdbcType="INTEGER" />
+    <result column="diary_pet_id" property="diaryPetId" jdbcType="INTEGER" />
+    <result column="diary_date" property="diaryDate" jdbcType="DATE" />
+    <result column="diary_title" property="diaryTitle" jdbcType="VARCHAR" />
+    <result column="diary_weather" property="diaryWeather" jdbcType="VARCHAR" />
+    <result column="diary_context" property="diaryContext" jdbcType="VARCHAR" />
+    <result column="diary_is_public" property="diaryIsPublic" jdbcType="BIT" />
+    <result column="diary_last_modify" property="diaryLastModify" jdbcType="TIMESTAMP" />
+    <result column="diary_author" property="diaryAuthor" jdbcType="VARCHAR" />
+    <result column="diary_author_email" property="diaryAuthorEmail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    diary_id, diary_pet_id, diary_date, diary_title, diary_weather, diary_context, diary_is_public, 
+    diary_last_modify, diary_author, diary_author_email
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fjw.domain.PetdiaryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from petdiary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from petdiary
+    where diary_id = #{diaryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from petdiary
+    where diary_id = #{diaryId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fjw.domain.PetdiaryExample" >
+    delete from petdiary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fjw.domain.Petdiary" >
+    insert into petdiary (diary_id, diary_pet_id, diary_date, 
+      diary_title, diary_weather, diary_context, 
+      diary_is_public, diary_last_modify, diary_author, 
+      diary_author_email)
+    values (#{diaryId,jdbcType=INTEGER}, #{diaryPetId,jdbcType=INTEGER}, #{diaryDate,jdbcType=DATE}, 
+      #{diaryTitle,jdbcType=VARCHAR}, #{diaryWeather,jdbcType=VARCHAR}, #{diaryContext,jdbcType=VARCHAR}, 
+      #{diaryIsPublic,jdbcType=BIT}, #{diaryLastModify,jdbcType=TIMESTAMP}, #{diaryAuthor,jdbcType=VARCHAR}, 
+      #{diaryAuthorEmail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fjw.domain.Petdiary" >
+    insert into petdiary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="diaryId != null" >
+        diary_id,
+      </if>
+      <if test="diaryPetId != null" >
+        diary_pet_id,
+      </if>
+      <if test="diaryDate != null" >
+        diary_date,
+      </if>
+      <if test="diaryTitle != null" >
+        diary_title,
+      </if>
+      <if test="diaryWeather != null" >
+        diary_weather,
+      </if>
+      <if test="diaryContext != null" >
+        diary_context,
+      </if>
+      <if test="diaryIsPublic != null" >
+        diary_is_public,
+      </if>
+      <if test="diaryLastModify != null" >
+        diary_last_modify,
+      </if>
+      <if test="diaryAuthor != null" >
+        diary_author,
+      </if>
+      <if test="diaryAuthorEmail != null" >
+        diary_author_email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="diaryId != null" >
+        #{diaryId,jdbcType=INTEGER},
+      </if>
+      <if test="diaryPetId != null" >
+        #{diaryPetId,jdbcType=INTEGER},
+      </if>
+      <if test="diaryDate != null" >
+        #{diaryDate,jdbcType=DATE},
+      </if>
+      <if test="diaryTitle != null" >
+        #{diaryTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="diaryWeather != null" >
+        #{diaryWeather,jdbcType=VARCHAR},
+      </if>
+      <if test="diaryContext != null" >
+        #{diaryContext,jdbcType=VARCHAR},
+      </if>
+      <if test="diaryIsPublic != null" >
+        #{diaryIsPublic,jdbcType=BIT},
+      </if>
+      <if test="diaryLastModify != null" >
+        #{diaryLastModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="diaryAuthor != null" >
+        #{diaryAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="diaryAuthorEmail != null" >
+        #{diaryAuthorEmail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fjw.domain.PetdiaryExample" resultType="java.lang.Integer" >
+    select count(*) from petdiary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update petdiary
+    <set >
+      <if test="record.diaryId != null" >
+        diary_id = #{record.diaryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.diaryPetId != null" >
+        diary_pet_id = #{record.diaryPetId,jdbcType=INTEGER},
+      </if>
+      <if test="record.diaryDate != null" >
+        diary_date = #{record.diaryDate,jdbcType=DATE},
+      </if>
+      <if test="record.diaryTitle != null" >
+        diary_title = #{record.diaryTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diaryWeather != null" >
+        diary_weather = #{record.diaryWeather,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diaryContext != null" >
+        diary_context = #{record.diaryContext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diaryIsPublic != null" >
+        diary_is_public = #{record.diaryIsPublic,jdbcType=BIT},
+      </if>
+      <if test="record.diaryLastModify != null" >
+        diary_last_modify = #{record.diaryLastModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.diaryAuthor != null" >
+        diary_author = #{record.diaryAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diaryAuthorEmail != null" >
+        diary_author_email = #{record.diaryAuthorEmail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update petdiary
+    set diary_id = #{record.diaryId,jdbcType=INTEGER},
+      diary_pet_id = #{record.diaryPetId,jdbcType=INTEGER},
+      diary_date = #{record.diaryDate,jdbcType=DATE},
+      diary_title = #{record.diaryTitle,jdbcType=VARCHAR},
+      diary_weather = #{record.diaryWeather,jdbcType=VARCHAR},
+      diary_context = #{record.diaryContext,jdbcType=VARCHAR},
+      diary_is_public = #{record.diaryIsPublic,jdbcType=BIT},
+      diary_last_modify = #{record.diaryLastModify,jdbcType=TIMESTAMP},
+      diary_author = #{record.diaryAuthor,jdbcType=VARCHAR},
+      diary_author_email = #{record.diaryAuthorEmail,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fjw.domain.Petdiary" >
+    update petdiary
+    <set >
+      <if test="diaryPetId != null" >
+        diary_pet_id = #{diaryPetId,jdbcType=INTEGER},
+      </if>
+      <if test="diaryDate != null" >
+        diary_date = #{diaryDate,jdbcType=DATE},
+      </if>
+      <if test="diaryTitle != null" >
+        diary_title = #{diaryTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="diaryWeather != null" >
+        diary_weather = #{diaryWeather,jdbcType=VARCHAR},
+      </if>
+      <if test="diaryContext != null" >
+        diary_context = #{diaryContext,jdbcType=VARCHAR},
+      </if>
+      <if test="diaryIsPublic != null" >
+        diary_is_public = #{diaryIsPublic,jdbcType=BIT},
+      </if>
+      <if test="diaryLastModify != null" >
+        diary_last_modify = #{diaryLastModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="diaryAuthor != null" >
+        diary_author = #{diaryAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="diaryAuthorEmail != null" >
+        diary_author_email = #{diaryAuthorEmail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where diary_id = #{diaryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fjw.domain.Petdiary" >
+    update petdiary
+    set diary_pet_id = #{diaryPetId,jdbcType=INTEGER},
+      diary_date = #{diaryDate,jdbcType=DATE},
+      diary_title = #{diaryTitle,jdbcType=VARCHAR},
+      diary_weather = #{diaryWeather,jdbcType=VARCHAR},
+      diary_context = #{diaryContext,jdbcType=VARCHAR},
+      diary_is_public = #{diaryIsPublic,jdbcType=BIT},
+      diary_last_modify = #{diaryLastModify,jdbcType=TIMESTAMP},
+      diary_author = #{diaryAuthor,jdbcType=VARCHAR},
+      diary_author_email = #{diaryAuthorEmail,jdbcType=VARCHAR}
+    where diary_id = #{diaryId,jdbcType=INTEGER}
+  </update>
+
+  <!--添加日记-->
+  <insert id="addDiary" parameterType="com.fjw.domain.Petdiary" >
+    insert into petdiary (diary_pet_id, diary_date,
+    diary_title, diary_weather, diary_context,
+    diary_is_public, diary_last_modify, diary_author,
+    diary_author_email)
+    values (#{diaryPetId,jdbcType=INTEGER}, #{diaryDate,jdbcType=DATE},
+    #{diaryTitle,jdbcType=VARCHAR}, #{diaryWeather,jdbcType=VARCHAR}, #{diaryContext,jdbcType=VARCHAR},
+    #{diaryIsPublic,jdbcType=BIT}, #{diaryLastModify,jdbcType=TIMESTAMP}, #{diaryAuthor,jdbcType=VARCHAR},
+    #{diaryAuthorEmail,jdbcType=VARCHAR})
+  </insert>
+</mapper>
