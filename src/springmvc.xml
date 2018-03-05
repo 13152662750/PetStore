@@ -17,7 +17,7 @@
        					   http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
     <context:component-scan base-package="com.fjw"></context:component-scan>
-    <!--mvc替代处理器映射器和处理器适配器  -->
+    <!--mvc替代处理器映射器和处理器适配器-->
     <mvc:annotation-driven></mvc:annotation-driven>
     <!--视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
